@@ -4,7 +4,7 @@ The website component of a presentation aid for AR.
 
 Continuous Deployment via Heroku
 ----
-https://(something).herokuapp.com/
+https://presentar.herokuapp.com/
 
 Technologies used
 ----
