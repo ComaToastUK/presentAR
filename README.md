@@ -1,24 +1,35 @@
-# README
+PresentAR
+==========
+The website component of a presentation aid for AR.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Continuous Deployment via Heroku
+----
+https://(something).herokuapp.com/
 
-Things you may want to cover:
+Technologies used
+----
+- Ruby on Rails
+- PostgreSQL
 
-* Ruby version
+How to set up the application
+----
+```
+$ git clone https://github.com/comatoastuk/presentAR.git
+$ cd presentAR
+$ bundle
+$ rake db:setup
+$ bin/rails db:migrate
+$ rspec
+$ bin/rails server
+```
+Tested using:
+----
+- RSpec
+- Capybara
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+How to run tests
+----
+```sh
+$ cd presentAR
+$ rspec
+```
