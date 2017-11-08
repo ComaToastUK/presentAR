@@ -1,0 +1,23 @@
+<head>
+  <title>PresentAR</title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+  <div class="navbar navbar-default">
+    <div class="container-fluid">
+      <a href="/assets" class="navbar-brand">PresentAR</a>
+      <button class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><%= link_to 'Upload File', new_asset_path %></li>
+            <li class="active"><%= link_to 'My Files', assets_path %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
