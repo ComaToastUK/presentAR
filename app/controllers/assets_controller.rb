@@ -24,7 +24,6 @@ class AssetsController < ApplicationController
   # POST /assets
   # POST /assets.json
   def create
-    require 'pry'
     @asset = Asset.new(asset_params)
     respond_to do |format|
       if @asset.save
