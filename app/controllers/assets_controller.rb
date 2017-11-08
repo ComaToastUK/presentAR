@@ -10,7 +10,6 @@ class AssetsController < ApplicationController
   # GET /assets/1
   # GET /assets/1.json
   def show
-    @asset.uploaded_file
   end
 
   # GET /assets/new

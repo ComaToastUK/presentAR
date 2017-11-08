@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Assets</h1>
+<h3>My Files</h3>
 
 <table>
   <thead>
@@ -12,10 +12,8 @@
   <tbody>
     <% @assets.each do |asset| %>
       <tr>
-        <td><%= link_to asset.uploaded_file_file_name, asset.uploaded_file.url %></td> 
-        <td><%= link_to 'Show', asset %> </td>
-        <td><%= link_to 'Edit', edit_asset_path(asset) %> </td>
-        <td><%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+        <td><%= link_to asset.uploaded_file_file_name, asset.uploaded_file.url %></td>
+        <td><%= link_to 'More Details', asset %> </td>
       </tr>
     <% end %>
   </tbody>
@@ -23,4 +21,4 @@
 
 <br>
 
-<%= link_to 'New Asset', new_asset_path %>
+<%= link_to 'Upload File', new_asset_path %>
