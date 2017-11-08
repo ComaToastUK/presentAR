@@ -24,8 +24,8 @@ class AssetsController < ApplicationController
   # POST /assets
   # POST /assets.json
   def create
+    require 'pry'
     @asset = Asset.new(asset_params)
-
     respond_to do |format|
       if @asset.save
         format.html { redirect_to @asset, notice: 'Asset was successfully created.' }
@@ -69,6 +69,6 @@ class AssetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def asset_params
-      params.fetch(:asset, {})
+      params.require(:asset).permit(:uploaded_file)
     end
 end
