@@ -1,17 +1,9 @@
-<%= form_with(model: asset, local: true) do |form| %>
-  <% if asset.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
-
-      <ul>
-      <% asset.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="form-wrapper">
+  <%= simple_form_for @asset, html: { class: 'form-horizontal', multipart: true } do |f| %>
+    <div>
+      <%= f.label :uploaded_file, "File" %><br />
+      <%= f.file_field :uploaded_file %>
+      <%= f.button :submit, class: 'btn-success' %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
