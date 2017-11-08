@@ -1,4 +1,10 @@
 <p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <h3>My Files</h3>
+  </br>
+  <strong><%= @asset.id %></strong> | Filename: <strong><%= @asset.uploaded_file_file_name %></strong> | Uploaded: <strong><%= @asset.created_at %></strong>
 
-<%= link_to 'Edit', edit_asset_path(@asset) %> |
-<%= link_to 'Back', assets_path %>
+  <%= link_to 'Delete', @asset, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to 'Edit', edit_asset_path(@asset) %> |
+  <%= link_to 'Back', assets_path %>
+</div>
