@@ -18,8 +18,8 @@ class AssetsController < ApplicationController
   end
 
   # GET /assets/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /assets
   # POST /assets.json
@@ -38,17 +38,17 @@ class AssetsController < ApplicationController
 
   # PATCH/PUT /assets/1
   # PATCH/PUT /assets/1.json
-  def update
-    respond_to do |format|
-      if @asset.update(asset_params)
-        format.html { redirect_to @asset, notice: 'Asset was successfully updated.' }
-        format.json { render :show, status: :ok, location: @asset }
-      else
-        format.html { render :edit }
-        format.json { render json: @asset.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @asset.update(asset_params)
+  #       format.html { redirect_to @asset, notice: 'Asset was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @asset }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @asset.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /assets/1
   # DELETE /assets/1.json

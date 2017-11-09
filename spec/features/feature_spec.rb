@@ -53,6 +53,20 @@ end
     end
   end
 
+  context "user wants to delete test_image.jpg" do
+    it 'can destroy test_image.jpg' do
+      add_file
+      visit '/'
+      expect(page).to have_content('test_image.jpg')
+      click_link 'More Details'
+      click_link 'Delete'
+      p page.body
+      expect(page).to have_content('Asset was successfully destroyed')
+      visit '/'
+      expect(page).not_to have_content('test_image.jpg')
+    end
+  end
+
   def submit_form
    find('input[name="commit"]').click
   end
