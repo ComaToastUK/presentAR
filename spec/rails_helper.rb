@@ -1,6 +1,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
@@ -8,22 +8,21 @@ require 'simplecov'
 require 'simplecov-console'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::Console,
-  # Want a nice code coverage website? Uncomment this next line!
-  SimpleCov::Formatter::HTMLFormatter
-])
+                                                                 SimpleCov::Formatter::Console,
+                                                                 # Want a nice code coverage website? Uncomment this next line!
+                                                                 SimpleCov::Formatter::HTMLFormatter
+                                                               ])
 SimpleCov.start
 
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.register_driver :selenium_chrome do |app|
- Capybara::Selenium::Driver.new(app, browser: :chrome)
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
 Capybara.javascript_driver = :selenium_chrome
 
 RSpec.configure do |config|
-
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.use_transactional_fixtures = false
@@ -32,24 +31,21 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
 
-
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
-  DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :transaction
 
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
 
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
-
-  config.include Capybara::DSL
-
+    config.include Capybara::DSL
   end
 end
