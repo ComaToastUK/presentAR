@@ -13,12 +13,14 @@ feature 'Upload file' do
   context 'user wants to upload a new file' do
     it 'can navigate to the Upload Files page' do
       visit '/'
+      sign_in
       first(:link, 'Upload File').click
       expect(page).to have_content('New Asset')
     end
 
     it 'can select a file for upload from the local machine' do
       visit '/'
+      sign_in
       first(:link, 'Upload File').click
       page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
       submit_form
@@ -27,6 +29,7 @@ feature 'Upload file' do
 
     it 'can view uploaded file in the root directory' do
       visit '/'
+      sign_in
       first(:link, 'Upload File').click
       page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
       submit_form
@@ -35,6 +38,7 @@ feature 'Upload file' do
     end
 
     it 'can view more details of an uploaded file' do
+      sign_in
       add_file
       time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
       visit '/'
@@ -47,6 +51,7 @@ end
 feature 'Download file' do
   context 'user wants to download a test_image.jpg' do
     it 'can download test_image.jpg' do
+      sign_in
       add_file
       visit '/'
       click_link 'test_image.jpg'
@@ -58,6 +63,7 @@ end
 feature 'Delete files' do
   context 'user wants to delete test_image.jpg' do
     it 'can destroy test_image.jpg' do
+      sign_in
       add_file
       visit '/'
       expect(page).to have_content('test_image.jpg')
@@ -72,6 +78,16 @@ end
 
 def submit_form
   find('input[name="commit"]').click
+end
+
+def sign_in
+  visit '/'
+  first(:link, 'Register').click
+  fill_in 'user[email]', with: 'testy@testmail.com'
+  fill_in 'user[user_name]', with: 'Test User'
+  fill_in 'user[password]', with: 'testtest'
+  fill_in 'user[password_confirmation]', with: 'testtest'
+  click_button 'Sign up'
 end
 
 def add_file
