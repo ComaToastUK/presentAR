@@ -8,10 +8,8 @@ require 'simplecov'
 require 'simplecov-console'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-                                                                 SimpleCov::Formatter::Console,
-                                                                 # Want a nice code coverage website? Uncomment this next line!
-                                                                 SimpleCov::Formatter::HTMLFormatter
-                                                               ])
+                      SimpleCov::Formatter::Console,
+                      SimpleCov::Formatter::HTMLFormatter])
 SimpleCov.start
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -37,6 +35,16 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
+
+    config.before(:each, type: :feature) do
+
+    driver_shares_db_connection_with_specs = Capybara.current_driver == :rack_test
+
+    if !driver_shares_db_connection_with_specs
+
+      DatabaseCleaner.strategy = :truncation
+    end
+  end
 
     config.before(:each) do
       DatabaseCleaner.start
