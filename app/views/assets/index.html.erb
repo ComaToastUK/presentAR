@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h3>My Files</h3>
 
 <table>
@@ -8,7 +6,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
+  <% if current_user %>
   <tbody>
     <% @assets.each do |asset| %>
       <tr>
@@ -17,6 +15,14 @@
       </tr>
     <% end %>
   </tbody>
+  <% else %>
+  <tbody>
+    <% @assets.each do |asset| %>
+      <tr>
+        <td><%= asset.uploaded_file_file_name %></td>
+        <td><%= link_to 'More Details', asset %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <% end %>
 </table>
-
-<br>

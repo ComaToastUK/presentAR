@@ -76,18 +76,93 @@ feature 'Delete files' do
   end
 end
 
+feature 'Non users cannot download files' do
+  context 'a non user wants to download a file from show' do
+    it "doesn't allow for non user downloads" do
+      sign_in_add_and_sign_out
+      click_link 'More Details'
+      expect(page).not_to have_content 'Download'
+    end
+
+    context 'a non user wants to download a file from index' do
+      it "doesn't allow for non user downloads" do
+        sign_in_add_and_sign_out
+        visit '/'
+        expect(page).not_to have_link 'test_image.jpg'
+        expect(page).to have_content 'test_image.jpg'
+      end
+    end
+  end
+
+  context 'a non user wants to delete a file' do
+    it "doesn't allow for non user file deletions" do
+      sign_in_add_and_sign_out
+      visit '/'
+      click_link 'More Details'
+      expect(page).to have_content 'Uploaded by: Test User'
+      expect(page).not_to have_content 'Delete'
+    end
+  end
+end
+
+feature 'signed in users cannot delete other users files' do
+  context 'a user wants to delete a file that they did not upload' do
+      it 'only allows file owners to delete files' do
+      sign_in_add_and_sign_out
+      sign_in('test2@test2mail.com', 'Mr Deleter', 'ideletestuff')
+      visit '/'
+      click_link 'More Details'
+      expect(page).to have_content 'Uploaded by: Test User'
+      expect(page).to have_content 'Download'
+      expect(page).not_to have_content 'Delete'
+    end
+  end
+end
+
+feature 'users can log in anytime after creating an account' do
+  context 'Test User wants to log back in after logging out' do
+    it 'allows a user to log in' do
+      sign_in_add_and_sign_out
+      login
+      expect(page).to have_content 'Signed in successfully'
+    end
+  end
+end
+
+feature 'User login' do
+  context 'Test User tries to log in with an incorrect password' do
+    it 'does not login succesfully' do
+      sign_in_add_and_sign_out
+      login('testy@testmail.com', 'password')
+      expect(page).not_to have_content 'Signed in successfully'
+      expect(page).to have_content 'Log in'
+    end
+  end
+end
+
 def submit_form
   find('input[name="commit"]').click
 end
 
-def sign_in
+def sign_in(    email = 'testy@testmail.com',
+            user_name = 'Test User',
+             password = 'testtest')
   visit '/'
   first(:link, 'Register').click
-  fill_in 'user[email]', with: 'testy@testmail.com'
-  fill_in 'user[user_name]', with: 'Test User'
-  fill_in 'user[password]', with: 'testtest'
-  fill_in 'user[password_confirmation]', with: 'testtest'
+  fill_in 'user[email]', with: email
+  fill_in 'user[user_name]', with: user_name
+  fill_in 'user[password]', with: password
+  fill_in 'user[password_confirmation]', with: password
   click_button 'Sign up'
+end
+
+def login(email    = 'testy@testmail.com',
+          password = 'testtest')
+  visit '/'
+  click_link 'Login'
+  fill_in 'user[email]', with: email
+  fill_in 'user[password]', with: password
+  submit_form
 end
 
 def add_file
@@ -95,4 +170,18 @@ def add_file
   first(:link, 'Upload File').click
   page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
   submit_form
+end
+
+def sign_out
+  click_link 'Logout'
+end
+
+def submit_form
+   find('input[name="commit"]').click
+end
+
+def sign_in_add_and_sign_out
+  sign_in
+  add_file
+  sign_out
 end
