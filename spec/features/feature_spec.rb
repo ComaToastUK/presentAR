@@ -21,7 +21,12 @@ feature 'Upload file' do
     it 'can select a file for upload from the local machine' do
       visit '/'
       sign_in
-      first(:link, 'Upload File').click
+      fill_in('model_name', :with => "Test")
+      first(:link, 'Choose File').click
+      page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
+      second(:link, 'Choose File').click
+      page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
+      third(:link, 'Choose File').click
       page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
       submit_form
       expect(Asset.first.uploaded_file_file_name).to eq('test_image.jpg')

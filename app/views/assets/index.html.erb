@@ -10,7 +10,8 @@
   <tbody>
     <% @assets.each do |asset| %>
       <tr>
-        <td><%= link_to asset.uploaded_file_file_name, asset.uploaded_file.url %></td>
+        <td><%= asset.name %></td>
+        <td><img src=<%= asset.model_image %> width="300px"</img></td>
         <td><%= link_to 'More Details', asset %> </td>
       </tr>
     <% end %>
