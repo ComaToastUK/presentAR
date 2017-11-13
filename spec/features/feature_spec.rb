@@ -21,13 +21,11 @@ feature 'Upload file' do
     it 'can select a file for upload from the local machine' do
       visit '/'
       sign_in
-      fill_in('model_name', :with => "Test")
-      first(:link, 'Choose File').click
+      visit '/assets/new'
+      fill_in('asset[name]', :with => "Test")
       page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
-      second(:link, 'Choose File').click
-      page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
-      third(:link, 'Choose File').click
-      page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
+      page.attach_file('asset[image_target]', Rails.root + 'spec/Fixtures/Marker-00.png')
+      page.attach_file('asset[model_image]', Rails.root + 'spec/Fixtures/TrumpImg.jpg')
       submit_form
       expect(Asset.first.uploaded_file_file_name).to eq('test_image.jpg')
     end
@@ -36,10 +34,13 @@ feature 'Upload file' do
       visit '/'
       sign_in
       first(:link, 'Upload File').click
+      fill_in 'asset[name]', :with => 'Test Model'
       page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
+      page.attach_file('asset[image_target]', Rails.root + 'spec/Fixtures/Marker-00.png')
+      page.attach_file('asset[model_image]', Rails.root + 'spec/Fixtures/TrumpImg.jpg')
       submit_form
       visit '/'
-      expect(page).to have_content('test_image.jpg')
+      expect(page).to have_content('Test Model')
     end
 
     it 'can view more details of an uploaded file' do
@@ -59,7 +60,8 @@ feature 'Download file' do
       sign_in
       add_file
       visit '/'
-      click_link 'test_image.jpg'
+      click_link 'More Details'
+      click_link 'Download'
       expect(page.response_headers['Content-Type']).to eq 'image/jpeg'
     end
   end
@@ -71,12 +73,12 @@ feature 'Delete files' do
       sign_in
       add_file
       visit '/'
-      expect(page).to have_content('test_image.jpg')
+      expect(page).to have_content('Test Model')
       click_link 'More Details'
       click_link 'Delete'
       expect(page).to have_content('Asset was successfully destroyed')
       visit '/'
-      expect(page).not_to have_content('test_image.jpg')
+      expect(page).not_to have_content('Test Model')
     end
   end
 end
@@ -104,7 +106,7 @@ feature 'Non users cannot download files' do
       sign_in_add_and_sign_out
       visit '/'
       click_link 'More Details'
-      expect(page).to have_content 'Uploaded by: Test User'
+      expect(page).to have_content 'This model is private'
       expect(page).not_to have_content 'Delete'
     end
   end
@@ -117,8 +119,7 @@ feature 'signed in users cannot delete other users files' do
       sign_in('test2@test2mail.com', 'Mr Deleter', 'ideletestuff')
       visit '/'
       click_link 'More Details'
-      expect(page).to have_content 'Uploaded by: Test User'
-      expect(page).to have_content 'Download'
+      expect(page).to have_content 'This model is private'
       expect(page).not_to have_content 'Delete'
     end
   end
@@ -173,7 +174,10 @@ end
 def add_file
   visit '/'
   first(:link, 'Upload File').click
+  fill_in 'asset[name]', :with => 'Test Model'
   page.attach_file('asset[uploaded_file]', Rails.root + 'spec/Fixtures/test_image.jpg')
+  page.attach_file('asset[image_target]', Rails.root + 'spec/Fixtures/Marker-00.png')
+  page.attach_file('asset[model_image]', Rails.root + 'spec/Fixtures/TrumpImg.jpg')
   submit_form
 end
 
