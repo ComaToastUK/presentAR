@@ -15,8 +15,14 @@
       </button>
       <div class="collapse navbar-collapse" id="mynavbar">
         <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
             <li class="active"><%= link_to 'Upload File', new_asset_path %></li>
             <li class="active"><%= link_to 'My Files', assets_path %></li>
+            <li class="active"><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+            <li class="active"><%= link_to "Login", new_user_session_path %></li>
+            <li class="active"><%= link_to "Register", new_user_registration_path %></li>
+        <% end %>
         </ul>
       </div>
     </div>

@@ -1,10 +1,33 @@
 <p id="notice"><%= notice %></p>
 <div class="container-fluid">
+  <div class="text-center">
   <h3><%= @asset.uploaded_file_file_name %></h3>
-  </br>
+</br>
+  <% if current_user %>
+    <p><strong>ID:</strong><%= @asset.id %> | <strong>Filename: </strong><%= @asset.uploaded_file_file_name %></p><p><strong>
+      File type: </strong><%= @asset.uploaded_file_content_type %> | <strong>Uploaded: </strong><%= @asset.created_at %></p>
+    <p><strong>AWS link: </strong><%= @asset.uploaded_file.url %></p>
+    <p><strong> Uploaded by: </strong><%= @asset.user.user_name %> </p>
+  <% else %>
   <p><strong>ID:</strong><%= @asset.id %> | <strong>Filename: </strong><%= @asset.uploaded_file_file_name %></p><p><strong>
     File type: </strong><%= @asset.uploaded_file_content_type %> | <strong>Uploaded: </strong><%= @asset.created_at %></p>
-  <%= link_to 'Download', @asset.uploaded_file.url %> |
-  <%= link_to 'Delete', @asset, method: :delete, data: { confirm: 'Are you sure?' } %> |
-  <%= link_to 'Back', assets_path %>
+    <p><strong> Uploaded by: </strong><%= @asset.user.user_name %> </p>
+  <% end %>
+  </div>
+  <% if current_user && @asset.user.id == current_user.id %>
+    <div class="text-center edit-links">
+      <%= link_to 'Download', @asset.uploaded_file.url %> |
+      <%= link_to 'Delete', @asset, method: :delete, data: { confirm: 'Are you sure?' } %> |
+      <%= link_to 'Back', assets_path %>
+    </div>
+  <% elsif user_signed_in? %>
+    <div class="text-center edit-links">
+      <%= link_to 'Download', @asset.uploaded_file.url %> |
+      <%= link_to 'Back', assets_path %>
+    </div>
+  <% else %>
+    <div class="text-center edit-links">
+      <%= link_to 'Back', assets_path %>
+    </div>
+  <% end %>
 </div>
