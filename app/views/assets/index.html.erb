@@ -1,29 +1,19 @@
-<h3>My Files</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <% if current_user %>
-  <tbody>
-    <% @assets.each do |asset| %>
-      <tr>
-        <td><%= asset.name %></td>
-        <td><img src=<%= asset.model_image %> width="300px"</img></td>
-        <td><%= link_to 'More Details', asset %> </td>
-      </tr>
-    <% end %>
-  </tbody>
-  <% else %>
-  <tbody>
-    <% @assets.each do |asset| %>
-      <tr>
-        <td><%= asset.uploaded_file_file_name %></td>
-        <td><%= link_to 'More Details', asset %> </td>
-      </tr>
-    <% end %>
-  </tbody>
-  <% end %>
-</table>
+<% if current_user %>
+  <h1>My 3D Models</h1>
+  <table>
+    <tbody>
+      <% @assets.each do |asset| %>
+        <div class="model_box">
+          <div class="model_name"><%= asset.name %></div>
+          <div class="model_img"><img src=<%= asset.model_image %> width="300px"</img></div>
+          <div class="more_details"><%= link_to 'More Details', asset %> </div>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h1>PresentAR - See your 3D models in glorious Augmented Reality</h1>
+  <div class="ar_home">
+    <%= image_tag "ar_home.png", size: '1200x750' %>
+  </div>
+<% end %>

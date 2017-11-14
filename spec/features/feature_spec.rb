@@ -4,7 +4,7 @@ feature 'My Files page' do
   context 'user wants to see an index page with a list of files' do
     it 'can see a list of files' do
       visit '/'
-      expect(page).to have_content('My Files')
+      expect(page).to have_content('PresentAR - See your 3D models in glorious Augmented Reality')
     end
   end
 end
@@ -49,7 +49,7 @@ feature 'Upload file' do
       time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
       visit '/'
       click_link 'More Details'
-      expect(page).to have_content "File type: image/jpeg | Uploaded: #{time}"
+      expect(page).to have_content "Uploaded on: #{time}"
     end
   end
 end
@@ -83,47 +83,22 @@ feature 'Delete files' do
   end
 end
 
-feature 'Non users cannot download files' do
-  context 'a non user wants to download a file from show' do
-    it "doesn't allow for non user downloads" do
+feature 'Non users cannot upload files' do
+  context 'a non user wants to upload a file' do
+    it "doesn't show upload option for non users" do
       sign_in_add_and_sign_out
-      click_link 'More Details'
-      expect(page).not_to have_content 'Download'
+      expect(page).not_to have_link 'Upload File'
     end
+  end
 
-    context 'a non user wants to download a file from index' do
-      it "doesn't allow for non user downloads" do
+    context 'a non user wants to see files' do
+      it "doesn't allow for non user files" do
         sign_in_add_and_sign_out
         visit '/'
-        expect(page).not_to have_link 'test_image.jpg'
-        expect(page).to have_content 'test_image.jpg'
+        expect(page).not_to have_link 'My Files'
       end
     end
   end
-
-  context 'a non user wants to delete a file' do
-    it "doesn't allow for non user file deletions" do
-      sign_in_add_and_sign_out
-      visit '/'
-      click_link 'More Details'
-      expect(page).to have_content 'This model is private'
-      expect(page).not_to have_content 'Delete'
-    end
-  end
-end
-
-feature 'signed in users cannot delete other users files' do
-  context 'a user wants to delete a file that they did not upload' do
-      it 'only allows file owners to delete files' do
-      sign_in_add_and_sign_out
-      sign_in('test2@test2mail.com', 'Mr Deleter', 'ideletestuff')
-      visit '/'
-      click_link 'More Details'
-      expect(page).to have_content 'This model is private'
-      expect(page).not_to have_content 'Delete'
-    end
-  end
-end
 
 feature 'users can log in anytime after creating an account' do
   context 'Test User wants to log back in after logging out' do

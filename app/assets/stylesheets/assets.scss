@@ -1,3 +1,58 @@
-// Place all the styles related to the Assets controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.ar_home {
+  text-align: center;
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.form-group {
+  margin: 0, auto, 50px, auto;
+}
+
+.model_box {
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  display: block;
+  position: relative;
+  margin: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+.model_img {
+  width: 300px;
+  display: block;
+  margin:auto;
+}
+
+.model_name {
+  width: 300px;
+  text-align: center;
+  display: block;
+  font-size: 200%;
+  margin: 0;
+}
+
+.more_details {
+  width: 300px;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+  margin: 20px auto 0 auto;
+}
+
+#model_box {
+  padding: 30px;
+  margin: 50px auto;
+  width: 800px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+.IT_detail_image {
+  margin-bottom: 20px;
+}
