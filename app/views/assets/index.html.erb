@@ -3,11 +3,13 @@
   <table>
     <tbody>
       <% @assets.each do |asset| %>
-        <div class="model_box">
-          <div class="model_name"><%= asset.name %></div>
-          <div class="model_img"><img src=<%= asset.model_image %> width="300px"</img></div>
-          <div class="more_details"><%= link_to 'More Details', asset %> </div>
-        </div>
+        <% if asset.user.id == current_user.id %>
+          <div class="model_box">
+            <div class="model_name"><%= asset.name %></div>
+            <div class="model_img"><img src=<%= asset.model_image %> width="300px"</img></div>
+            <div class="more_details"><%= link_to 'More Details', asset %> </div>
+          </div>
+        <%end%>
       <% end %>
     </tbody>
   </table>
