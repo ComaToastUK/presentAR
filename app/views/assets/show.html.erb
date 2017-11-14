@@ -1,24 +1,28 @@
-<div class="container-fluid">
-  <% if current_user && @asset.user.id == current_user.id %>
-    <div class="text-center">
-      <h3><%= @asset.name %></h3>
-      <img src=<%= @asset.model_image %> width="300px"</img>
-      <img src=<%= @asset.image_target %> width="300px"</img>
-      <p><strong>ID:</strong><%= @asset.id %> | <strong>Filename: </strong><%= @asset.uploaded_file_file_name %></p><p><strong>
-        File type: </strong><%= @asset.uploaded_file_content_type %> | <strong>Uploaded: </strong><%= @asset.created_at %></p>
-      <p><strong>AWS link: </strong><%= @asset.uploaded_file.url %></p>
-      <p><strong> Uploaded by: </strong><%= @asset.user.user_name %> </p>
-    </div>
+  <div class="container-fluid">
+    <div id="model_box">
+      <% if current_user && @asset.user.id == current_user.id %>
+        <div class="text-center">
+          <h1><%= @asset.name %></h1>
+          <img class="model_detail_image" src=<%= @asset.model_image %> width="250px"></img>
+          <h3>Image Target</h3>
+          <img class="IT_detail_image" src=<%= @asset.image_target %> width="400px"></img>
 
-    <div class="text-center edit-links">
-      <%= link_to 'Download', @asset.uploaded_file.url %> |
-      <%= link_to 'Delete', @asset, method: :delete, data: { confirm: 'Are you sure?' } %> |
-      <%= link_to 'Back', assets_path %>
+          <p><strong>Model Asset: </strong><%= @asset.uploaded_file_file_name %></p>
+          <p><strong>Uploaded on: </strong><%= @asset.created_at %></p>
+          <p><strong>AWS link: </strong><%= @asset.uploaded_file.url %></p>
+          <p><strong>Uploaded by: </strong><%= @asset.user.user_name %> </p>
+        </div>
+
+        <div class="text-center edit-links">
+          <%= link_to 'Download', @asset.uploaded_file.url %> |
+          <%= link_to 'Delete', @asset, method: :delete, data: { confirm: 'Are you sure?' } %> |
+          <%= link_to 'Back', assets_path %>
+        </div>
+      <% else %>
+        <div class="text-center">
+          <h3>This model is private</h3>
+          <%= link_to 'Back', assets_path %>
+        </div>
+      <% end %>
     </div>
-  <% else %>
-    <div class="text-center">
-      <h3>This model is private</h3>
-      <%= link_to 'Back', assets_path %>
-    </div>
-  <% end %>
 </div>

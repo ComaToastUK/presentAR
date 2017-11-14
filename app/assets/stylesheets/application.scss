@@ -15,6 +15,8 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "assets.scss";
+@import "devise.scss";
 
 body {
   background-color: #efefef;
@@ -45,19 +47,22 @@ body {
   border: solid 1px #bfbfbf;
 }
 
-.form-wrapper {
-  width: 60%;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 40px;
-  border: 1px solid #eeefef;
-  border-radius: 3px;
-}
-
 .navbar-brand {
   padding: 0;
 }
 
 #navbar {
-  background-color: #303030
+  background-color: #303030;
+  vertical-align: middle;
+}
+
+h1 {
+  text-align: center;
+}
+
+#welcome {
+  color: #fff;
+  font-size: 120%;
+  display: inline-block;
+  margin: 15px;
 }
