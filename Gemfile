@@ -13,7 +13,7 @@ gem 'devise'
 gem 'dotenv-rails', groups: %i[development test]
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
-gem 'paperclip', '~> 5.0.0'
+gem 'paperclip', '~> 5.2.0'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.4'
